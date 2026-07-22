@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: thuantvmindxcom/mindx-challenge-havandatw-20260720
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.API_GUARD_TOKEN }}
           path: ApiGuard
 
       - name: Setup .NET
