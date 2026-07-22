@@ -36,11 +36,11 @@
       }
     },
     "/products": {
-      "get": {
-        "summary": "Get products",
+      "post": {
+        "summary": "Create product",
         "responses": {
-          "200": {
-            "description": "Success"
+          "201": {
+            "description": "Product created"
           }
         }
       }
