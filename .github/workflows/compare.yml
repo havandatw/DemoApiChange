@@ -22,7 +22,8 @@ jobs:
       - name: Checkout ApiGuard
         uses: actions/checkout@v4
         with:
-          repository: YOUR_USERNAME/ApiGuard
+          repository: thuantvmindxcom/mindx-challenge-havandatw-20260720
+          token: ${{ secrets.GITHUB_TOKEN }}
           path: ApiGuard
 
       - name: Setup .NET
