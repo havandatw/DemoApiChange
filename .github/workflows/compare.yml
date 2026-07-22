@@ -32,10 +32,10 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore
-        run: dotnet restore ApiGuard/ApiGuard.sln
+        run: dotnet restore ApiGuard/ApiGuard/ApiGuard.sln
 
       - name: Build
-        run: dotnet build ApiGuard/ApiGuard.sln --configuration Release --no-restore
+        run: dotnet build ApiGuard/ApiGuard/ApiGuard.sln --configuration Release --no-restore
 
       - name: Prepare Compare Folder
         run: mkdir compare
@@ -57,7 +57,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           dotnet run \
-            --project ApiGuard/ApiGuard.Cli \
+            --project ApiGuard/ApiGuard/ApiGuard.Cli \
             --configuration Release \
             -- compare \
             compare/swagger-main.json \
