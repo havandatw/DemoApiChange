@@ -1,0 +1,7 @@
+{
+  "swaggerPath": "swagger.json",
+
+  "reportPath": "ApiGuardReport.md",
+
+  "failOnBreaking": true
+}

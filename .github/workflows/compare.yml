@@ -1,0 +1,69 @@
+name: ApiGuard Compare
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Pull Request
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout ApiGuard
+        uses: actions/checkout@v4
+        with:
+          repository: YOUR_USERNAME/ApiGuard
+          path: ApiGuard
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore ApiGuard/ApiGuard.sln
+
+      - name: Build
+        run: dotnet build ApiGuard/ApiGuard.sln --configuration Release --no-restore
+
+      - name: Prepare Compare Folder
+        run: mkdir compare
+
+      - name: Save PR Swagger
+        run: cp swagger.json compare/swagger-pr.json
+
+      - name: Checkout Main Branch
+        run: git checkout origin/${{ github.event.pull_request.base.ref }}
+
+      - name: Save Main Swagger
+        run: cp swagger.json compare/swagger-main.json
+
+      - name: Checkout Pull Request Again
+        run: git checkout ${{ github.sha }}
+
+      - name: Run ApiGuard
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          dotnet run \
+            --project ApiGuard/ApiGuard.Cli \
+            --configuration Release \
+            -- compare \
+            compare/swagger-main.json \
+            compare/swagger-pr.json
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ApiGuardReport
+          path: ApiGuardReport.md
