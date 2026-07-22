@@ -34,16 +34,6 @@
           }
         }
       }
-    },
-    "/products": {
-      "post": {
-        "summary": "Create product new",
-        "responses": {
-          "201": {
-            "description": "Product created"
-          }
-        }
-      }
     }
   }
 }
