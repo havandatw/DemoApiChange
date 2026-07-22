@@ -22,7 +22,7 @@ jobs:
       - name: Checkout ApiGuard
         uses: actions/checkout@v4
         with:
-          repository: YOUR_USERNAME/ApiGuard
+          repository: havandatw/ApiGuard
           path: ApiGuard
 
       - name: Setup .NET
